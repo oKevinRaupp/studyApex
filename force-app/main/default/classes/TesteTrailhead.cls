@@ -11,8 +11,10 @@ public with sharing class TesteTrailhead {
 
         // Get elements from a list
         String color1 = moreColors.get(0);
+        System.debug(moreColors.get(0));
         String color2 = moreColors[0];
-        System.debug(System.assertEquals(color1, color2));
+        System.debug(moreColors[0]);
+        System.assertEquals(color1, color2);
         // Iterate over a list to read elements
         for(Integer i=0;i<colors.size();i++) { 
         // Write value to the debug log

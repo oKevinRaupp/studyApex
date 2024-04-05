@@ -5,7 +5,10 @@ public with sharing class StringArrayTest {
 
         for (Integer i = 0; i < intKevin; i++) {
             lstString.add('Test ' + i.toString());
-            System.debug(lstString[i]);
+        }
+
+        for (String s : lstString) {
+            System.debug(s);
         }
 
         return lstString;
