@@ -106,10 +106,9 @@ public with sharing class AccountBO {
         //preparar os dados
         Set<Id> setIdConta = new Set<Id>();
         for(Account conta : lstOldAccount){
-            setIdConta.add(conta.id);
+            setIdConta.add(conta.Id);
         }
         List<Carro__c> carros = AccountDAO.getInstance().buscarCarrosPorAccountID(setIdConta);
-
         if(carros != null){
             Map<Id, List<Carro__c>> mapIdContaPorCarro = new Map<Id, List<Carro__c>>();
             for(Carro__c carro : carros){
@@ -133,8 +132,27 @@ public with sharing class AccountBO {
                     }
                 }
             }
-            if(!carrosDeletar.isEmpty()){
-                delete carrosDeletar;
+
+            System.debug(JSON.serializePretty('Carros deletar ' + JSON.serializePretty(carrosDeletar)));
+
+            if (!carrosDeletar.isEmpty()) {
+                Database.DeleteResult[] drList = Database.delete(carrosDeletar, false);
+    
+                // Iterate through each returned result
+                for(Database.DeleteResult dr : drList) {
+                    if (dr.isSuccess()) {
+                        // Operation was successful, so get the ID of the record that was processed
+                        System.debug('Successfully deleted account with ID: ' + dr.getId());
+                    }
+                    else {
+                        // Operation failed, so get all errors                
+                        for(Database.Error err : dr.getErrors()) {
+                            System.debug('The following error has occurred.');                    
+                            System.debug(err.getStatusCode() + ': ' + err.getMessage());
+                            System.debug('Account fields that affected this error: ' + err.getFields());
+                        }
+                    }
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ trigger AccountAddressTrigger on Account (before insert, before update, after in
 
         if(Trigger.isDelete){
             AccountBO.getInstance().validateRelatedCarroWhenDeleteAccount(Trigger.old);
+            AccountBO.getInstance().deleteRelatedCarroWhenDeleteAccount(Trigger.old);
         }
     }
     if (Trigger.isAfter) {
@@ -24,7 +25,7 @@ trigger AccountAddressTrigger on Account (before insert, before update, after in
         }
 
         if(Trigger.isDelete){
-           AccountBO.getInstance().deleteRelatedCarroWhenDeleteAccount(Trigger.old);
+            
         }
     }
     
