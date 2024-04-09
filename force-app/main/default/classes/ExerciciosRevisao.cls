@@ -3,10 +3,8 @@ public with sharing class ExerciciosRevisao {
 
 
     public static Boolean isEmailOnContacts(String email, List<Contact> lstContacts) {
-        String emailExemplo = 'rauppke@gmail.com';
         List<Contact> lstContactsExemplo = ExerciciosRevisaoDAO.getInstance().buscarContasValidas();
 
-        email = emailExemplo;
         lstContacts = lstContactsExemplo;
 
         System.debug('Email: ' + email);
@@ -17,16 +15,31 @@ public with sharing class ExerciciosRevisao {
             if (objContact.email == email) {
                 contactsThatContaisnEmail.add(objContact);
             }
-            System.debug(objContact.email);
+            System.debug('Email do contato: ' + objContact.Name + ': ' + objContact.email);
         }
 
-        System.debug('Tamanho da lsita que contem: ' + contactsThatContaisnEmail.size());
+        System.debug('Tamanho da lsita: ' + contactsThatContaisnEmail.size());
 
         if (contactsThatContaisnEmail.size() > 0) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public static Boolean isEmailOnContacts2(String email, List<Contact> lstContacts) {
+        List<Contact> lstContactsExemplo = ExerciciosRevisaoDAO.getInstance().buscarContasValidas();
+
+        lstContacts = lstContactsExemplo;
+
+        Set<String> setEmail = new Set<String>();
+
+        for (Contact objContact : lstContacts) {
+            setEmail.add(objContact.Email);
+        }
+
+        return setEmail.contains(email);
+
     }
 
     public static List<Integer> buscarNumerosPares(Integer n1, Integer n2) {

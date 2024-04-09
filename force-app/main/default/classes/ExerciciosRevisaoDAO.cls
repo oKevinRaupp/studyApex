@@ -8,7 +8,7 @@ public with sharing class ExerciciosRevisaoDAO {
 
     public List<Contact> buscarContasValidas() {
         return  [SELECT 
-                    Id, Email, Account.Name
+                    Id, Email, Account.Name, Name
                     FROM Contact 
                     WHERE 
                     Account.Name LIKE '%United Oil & Gas%'
