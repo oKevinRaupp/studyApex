@@ -197,50 +197,50 @@ trigger AccountAddressTrigger on Account (before insert, before update, after in
     //     }
     // }
 
-    // if(Trigger.isDelete && Trigger.isAfter) {
-        
-    //     List<Carro__c> lstCarrosToDelete = new List<Carro__c>();
+    // if(Trigger.isDelete && Trigger.isBefore) {
 
-    //     for (Account accountToDelete : Trigger.old) {
+    //     if (Trigger.isBefore) {
+         
+    //         List<Carro__c> lstCarrosToDelete = new List<Carro__c>();
 
-    //         List<Carro__c> lstCarrosVinculados = New List<Carro__c>();
-    //         lstCarrosVinculados =   [ 
-    //                                     SELECT
-    //                                     Id, Vendido__c
-    //                                     FROM Carro__c
-    //                                     WHERE
-    //                                     Account__c =:  accountToDelete.Id
-    //                                 ];
+    //         for (Account accountToDelete : Trigger.old) {
 
-    //         for (Carro__c carroToDelete : lstCarrosVinculados) {
-    //             if (carroToDelete.Vendido__c) {
-    //                 accountToDelete.addError('Conta com carros vendidos, não será possível efetuar a deleção da conta. ');
-    //             } else {
-    //                 lstCarrosToDelete.add(carroToDelete);
+    //             List<Carro__c> lstCarrosVinculados = New List<Carro__c>();
+    //             lstCarrosVinculados =   [ 
+    //                                         SELECT
+    //                                         Id, Vendido__c
+    //                                         FROM Carro__c
+    //                                         WHERE
+    //                                         Account__c =:  accountToDelete.Id
+    //                                     ];
+
+    //             for (Carro__c carroToDelete : lstCarrosVinculados) {
+    //                 if (carroToDelete.Vendido__c) {
+    //                     accountToDelete.addError('Conta com carros vendidos, não será possível efetuar a deleção da conta. ');
+    //                 } else {
+    //                     lstCarrosToDelete.add(carroToDelete);
+    //                 }
     //             }
     //         }
-    //     }
 
-    //     if (!lstCarrosToDelete.isEmpty()) {
-    //         Database.DeleteResult[] drList = Database.delete(lstCarrosToDelete, false);
+    //         if (!lstCarrosToDelete.isEmpty()) {
+    //             Database.DeleteResult[] drList = Database.delete(lstCarrosToDelete, false);
 
-    //         // Iterate through each returned result
-    //         for(Database.DeleteResult dr : drList) {
-    //             if (dr.isSuccess()) {
-    //                 // Operation was successful, so get the ID of the record that was processed
-    //                 System.debug('Successfully deleted account with ID: ' + dr.getId());
-    //             }
-    //             else {
-    //                 // Operation failed, so get all errors                
-    //                 for(Database.Error err : dr.getErrors()) {
-    //                     System.debug('The following error has occurred.');                    
-    //                     System.debug(err.getStatusCode() + ': ' + err.getMessage());
-    //                     System.debug('Account fields that affected this error: ' + err.getFields());
+    //             // Iterate through each returned result
+    //             for(Database.DeleteResult dr : drList) {
+    //                 if (dr.isSuccess()) {
+    //                     // Operation was successful, so get the ID of the record that was processed
+    //                     System.debug('Successfully deleted account with ID: ' + dr.getId());
+    //                 } else {
+    //                     // Operation failed, so get all errors                
+    //                     for(Database.Error err : dr.getErrors()) {
+    //                         System.debug('The following error has occurred.');                    
+    //                         System.debug(err.getStatusCode() + ': ' + err.getMessage());
+    //                         System.debug('Account fields that affected this error: ' + err.getFields());
+    //                     }
     //                 }
     //             }
     //         }
     //     }
-
     // } 
-
 }

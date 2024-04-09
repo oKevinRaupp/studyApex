@@ -122,7 +122,7 @@ public with sharing class AccountBO {
                 }
             }
 
-            //regra de negocio
+
             List<Carro__c> carrosDeletar = new List<Carro__c>();
             for(Account conta : lstOldAccount){
                 if(mapIdContaPorCarro.containsKey(conta.Id)){
