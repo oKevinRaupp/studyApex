@@ -197,7 +197,7 @@ trigger AccountAddressTrigger on Account (before insert, before update, after in
     //     }
     // }
 
-    // if(Trigger.isDelete && Trigger.isBefore) {
+    // if(Trigger.isDelete) {
 
     //     if (Trigger.isBefore) {
          
