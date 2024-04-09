@@ -3,11 +3,11 @@ trigger AccountAddressTrigger on Account (before insert, before update, after in
     if (Trigger.isBefore) {
 
         if(Trigger.isInsert){
-            AccountBO.getInstance().copiarDadosEnvioEnderecoCobranca(Trigger.new);
+            AccountBO.getInstance().copyShippingAdressToBillingAdress(Trigger.new);
         }
         
         if(Trigger.isUpdate){
-            AccountBO.getInstance().verificarEnderecosIguais(Trigger.new, Trigger.oldMap);
+            AccountBO.getInstance().validateSameAdress(Trigger.new, Trigger.oldMap);
         }
 
         if(Trigger.isDelete){
@@ -18,10 +18,10 @@ trigger AccountAddressTrigger on Account (before insert, before update, after in
     if (Trigger.isAfter) {
         
         if(Trigger.isInsert){
-            AccountBO.getInstance().criarOportunidade(Trigger.new);
+            AccountBO.getInstance().createOpportunity(Trigger.new);
         }
         if(Trigger.isUpdate){
-            AccountBO.getInstance().criarCaso(Trigger.new, Trigger.oldMap);
+            AccountBO.getInstance().createCase(Trigger.new, Trigger.oldMap);
         }
 
         if(Trigger.isDelete){

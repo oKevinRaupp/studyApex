@@ -8,7 +8,7 @@ public with sharing class AccountBO {
         return instance;
     }
 
-    public void criarOportunidade(List<Account> lstNewAccount) {
+    public void createOpportunity(List<Account> lstNewAccount) {
         List<Opportunity> lstOpportunidade = new List<Opportunity>();
             for (Account conta : lstNewAccount) {
                 Opportunity objOppToCreate = new Opportunity(AccountId=conta.Id, Name=conta.Name, StageName='Prospecting');
@@ -20,7 +20,7 @@ public with sharing class AccountBO {
             }
     }
 
-    public void criarCaso(List<Account> lstNewAccount, Map<Id, Account> mapIdOldAccount) {
+    public void createCase(List<Account> lstNewAccount, Map<Id, Account> mapIdOldAccount) {
         List<Case> cases = new List<Case>();
         for(Account conta : lstNewAccount){
             Account contaAntiga = mapIdOldAccount.get(conta.Id);
@@ -41,7 +41,7 @@ public with sharing class AccountBO {
         }
     }
 
-    public void copiarDadosEnvioEnderecoCobranca(List<Account> lstNewAccount) {
+    public void copyShippingAdressToBillingAdress(List<Account> lstNewAccount) {
         for (Account conta : lstNewAccount) {
             if (conta.Match_Billing_Address__c) {
                 conta.BillingPostalCode = conta.ShippingPostalCode;
@@ -53,7 +53,7 @@ public with sharing class AccountBO {
         }
     }
 
-    public void verificarEnderecosIguais(List<Account> lstNewAccount, Map<Id, Account> mapIdOldAccount) {
+    public void validateSameAdress(List<Account> lstNewAccount, Map<Id, Account> mapIdOldAccount) {
         for(Account conta : lstNewAccount){
             Account contaAntiga = mapIdOldAccount.get(conta.Id);
             if(conta.BillingPostalCode != contaAntiga.BillingPostalCode 
