@@ -2,7 +2,7 @@ trigger AccountAddressTrigger on Account (before insert, before update, after in
     
     if (Trigger.isBefore) {
 
-        if(Trigger.isInsert){
+        if(Trigger.isInsert && Trigger.isUpdate){
             AccountBO.getInstance().copyShippingAdressToBillingAdress(Trigger.new);
         }
         
