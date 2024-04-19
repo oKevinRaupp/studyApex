@@ -38,6 +38,7 @@ export default class Aula2Exemplos extends LightningElement {
             console.log('Number: ' + JSON.stringify( data.fields.BillingNumber__c.value ) );
             console.log('Name: ' + JSON.stringify( data.fields.Name.value ) );
             this.nome = data.fields.Name.value;
+            this.numero = data.fields.BillingNumber__c.value;
             //Lógica para armazenar os campos
         } else {
             //tratativa de erro
