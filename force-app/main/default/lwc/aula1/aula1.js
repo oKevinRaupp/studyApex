@@ -1,6 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import searchAccountByCEP from '@salesforce/apex/Aula3ExemploController.searchAccountByCEP'
 
 const ACCOUNT_FIELDS = [
     'Account.BillingPostalCode',
@@ -29,7 +30,7 @@ export default class Aula1 extends LightningElement {
     @wire(getRecord, { recordId: "$recordId", fields: ACCOUNT_FIELDS})
     accountDetails({error, data}) {
         if( data ) {
-            this.objTempAccount.cep = data.fields.BillingStreet.value;
+            this.objTempAccount.cep = data.fields.BillingPostalCode.value;
             this.objTempAccount.logradouro = data.fields.BillingStreet.value;
             this.objTempAccount.bairro = data.fields.BillingCountry.value;
             this.objTempAccount.cidade = data.fields.BillingCity.value;
@@ -46,6 +47,8 @@ export default class Aula1 extends LightningElement {
 
     
     handleClickSave(){
+
+        this.searchAccountByCEP(this.objTempAccount.cep);
 
         let cepValido = this.verificarCep();
 
@@ -106,7 +109,7 @@ export default class Aula1 extends LightningElement {
             let cepRegex = fieldValueSemCaracteres.match( /(\d{0,5})(\d{0,3})/ );
             fieldValue = cepRegex[1] + ( cepRegex[2] ? '-' + cepRegex[2] : '' );
             event.target.value = fieldValue;
-            this.objTempAccount.cep = fieldValue
+            this.objTempAccount.cep = fieldValue;
         }
 
         if (fieldName === 'Numero') {
@@ -121,4 +124,15 @@ export default class Aula1 extends LightningElement {
         }
         return true;
     }
+
+    searchAccountByCEP(accountCEP) {
+        searchAccountByCEP({accountCEP})
+        .then(result => {
+            console.log('Resultado: ' + JSON.stringify(result))
+        })
+        .catch(error => {
+            console.log('Erro: ' + error);
+        })
+    }
+
 }
